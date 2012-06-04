@@ -1,0 +1,18 @@
+<html>
+<head> <title>404 </title>
+<LINK REL=StyleSheet HREF="{{MEDIA_URL}}css/vs.css" TYPE="text/css" MEDIA="screen, print"/>
+ </head>
+<body>
+{% url home as home_url %}
+<span id="logo"> VSearch</span>
+<div class="hstrip"/>
+<div class="server-error">
+<p class="error-title">sorry..we couldn't find that page</p>
+
+<a href="{{ home_url }}"> <img src="{{ MEDIA_URL }}img/404Dg.png"> </a>
+</div>
+
+
+</body>
+
+</html>

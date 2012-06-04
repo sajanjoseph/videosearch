@@ -1,0 +1,19 @@
+<html>
+<head> <title>500 </title>
+<LINK REL=StyleSheet HREF="{{MEDIA_URL}}css/vs.css" TYPE="text/css" MEDIA="screen, print"/>
+ </head>
+<body>
+{% url home as home_url %}
+<span id="logo">VSearch</span>
+<div class="hstrip"/>
+<div class="server-error">
+<p class="error-title">sorry..server error!</p>
+
+<a href="{{ home_url }}"> <img src="{{ MEDIA_URL }}img/500Err.jpg"> </a>
+</div>
+
+
+
+</body>
+
+</html>

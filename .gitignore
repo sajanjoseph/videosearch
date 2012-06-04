@@ -1,0 +1,11 @@
+*.pyc
+*.*~
+*log.txt
+*.log
+*.pdf
+.project
+.pydevproject
+*.webm
+*.srt
+*.mp3
+*.mp4

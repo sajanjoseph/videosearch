@@ -1,0 +1,99 @@
+/* css for django app*/
+body{
+    background-color: grey;
+}
+
+video {
+    background-color: grey;
+    color: white;
+    height: 480px;
+    width: 640px;
+}
+
+.video_controls {
+
+      width: 640px;
+
+}
+
+.video_buttons {
+    background: url("../img/bgblack.png") top left repeat-x;
+    height: 33px;
+    margin: 0;
+    overflow: visible;
+    padding: 0 0 0 120px;  
+      
+}
+
+.video_buttons li {
+
+      clear: none;
+
+      float: left;
+
+      list-style: none;
+
+      margin: 0;
+
+      padding: 0 20px;
+
+}
+
+.video_buttons a {
+
+      background-image: url("../img/pcontrols.png");
+
+      background-repeat: no-repeat;
+
+      display: block;
+
+      height: 34px;
+
+      outline: none;
+
+      overflow: hidden;
+
+      text-indent: -9999px;
+
+      width: 34px;
+
+}
+
+.video_play a { background-position: -16px -13px }
+
+.video_play a:hover { background-position: -16px -59px }
+
+.video_play a.active { background-position: -16px -59px  }
+
+.video_play a.active:hover { background-position: -16px -59px }
+
+
+.video_pause a { background-position: -110px -13px }
+.video_pause a:hover { background-position: -110px -59px }
+.video_pause a.active { background-position: -110px -59px }
+.video_pause a.active:hover { background-position: -110px -59px }
+
+#results{
+	position : absolute;
+	right : 0;
+	top : 70px;
+	width:50%;
+	-moz-border-radius: 10px;
+	display: none;
+	padding: 10px;
+    background: #D0D0D0;
+	
+}
+
+#errorfld{
+	color:red;
+}
+
+div#searchdiv{
+	display:none;
+}
+
+div#videodiv{
+	width:50%;
+	
+}

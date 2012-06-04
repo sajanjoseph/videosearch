@@ -1,0 +1,13 @@
+{% extends "vsearch/base.html" %}
+
+{% block title %}
+{{block.super}}|results
+{% endblock %}
+
+ {% block content %}
+<h3>search results for {{keywords}}</h3>
+{%for k,v in results%}
+
+{{v}} ----{{k}}<br>
+{% endfor %}
+{% endblock %}

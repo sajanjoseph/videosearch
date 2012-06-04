@@ -1,0 +1,65 @@
+{% extends "vsearch/base.html" %}
+
+{% block title %}
+{{block.super}}|home
+{% endblock %}
+{% block js %} 
+<script type="text/javascript"  src="{{MEDIA_URL}}js/jquery-1.7.1.min.js" ></script>
+
+<script type="text/javascript"  src="{{MEDIA_URL}}js/videoctrl.js" ></script>
+
+
+{% endblock %}
+
+{% block content %}
+{{block.super}}
+<div id="videodiv">
+<video id="vid" width="640" height="360" controls="controls">
+       
+       Your browser does not support the video tag.
+</video>
+<div class="video_controls" rel="vid">
+    <div class="video_progress">
+        <div class="video_progress_bar">
+        
+        
+        </div>
+    </div>
+    <ul class="video_buttons">
+        <li class="video_pause"><a href="#">Pause</a></li>
+        <li class="video_play"> <a href="#" id="playlnk">Play </a> </li>
+    </ul>
+
+</div>
+
+<p>
+<label>Select a video
+<input type="file" name="fileselect" id="vselect"> </input>
+</label>
+</p>
+
+<form enctype="multipart/form-data" method="post" id="subfileform">{% csrf_token %}
+<p>
+<label>Select a subtitle
+<input type="file" name="subselect" id="subfselect"> </input>
+</label>
+</p>
+<!--  <input type="submit" id="sendsubtitle" value="sendsubtitle"> -->
+</form> 
+<div id="searchdiv">
+<label>
+    Search for some words:<input type="text" name="keywords" id="kwords"/>
+    <button type="button" id="kwsearch">search in video</button>
+</label>
+</div>
+</div>
+
+<div id="errorfld">
+
+</div>
+
+<div id="results">
+
+</div>
+
+{% endblock %}

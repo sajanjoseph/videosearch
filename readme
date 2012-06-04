@@ -1,0 +1,4 @@
+
+supported browsers - chrome and firefox
+
+To get this working in chrome,start chrome with flag --allow-file-access-from-files
