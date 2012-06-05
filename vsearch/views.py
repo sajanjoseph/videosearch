@@ -69,7 +69,6 @@ def sendname(request):
             name = post['name']
             global videofilename
             videofilename = name
-            print 'sendname()::videofilename=',videofilename
             success = True
         else:
             to_return['msg'] = u"Requires name"

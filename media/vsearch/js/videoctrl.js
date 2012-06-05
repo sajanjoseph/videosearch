@@ -198,6 +198,7 @@ function checkCanPlay(player,file){
 	//console.log('type=',type);
 	var canPlay = player.canPlayType(type);
 	//console.log('canPlay=',canPlay);
+	
 	if (canPlay==''){
 		return false;
 	}else{

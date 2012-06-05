@@ -1,4 +1,19 @@
+Search the content of any (browser supported) local video using its subrip(.srt) file
+
+A .srt file with the same name as the video should exist in the 'uploadpath' folder.
+You can select and upload the .srt file using the file input widget.
 
 supported browsers - chrome and firefox
 
 To get this working in chrome,start chrome with flag --allow-file-access-from-files
+
+.mp4,.webm,.ogv works in chrome
+.webm,.ogv works with firefox
+
+possible bugs:
+To read the srt file ,the code uses utf-8-sig codec 
+(http://docs.python.org/library/codecs.html#module-encodings.utf_8_sig)
+This is to deal with the BOM in the .srt files which I created using Google2SRT java program.
+Will implement a generic reader function ,when I get time.
+
+

@@ -5,6 +5,7 @@
 *.pdf
 .project
 .pydevproject
+videosearchdb
 *.webm
 *.srt
 *.mp3
