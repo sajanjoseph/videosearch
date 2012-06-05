@@ -13,7 +13,7 @@ from django.http import HttpResponseServerError
 
 class SubRipParseTest(TestCase):
     def setUp(self):
-        self.filename = os.path.join(settings.MEDIA_ROOT,'uploads','cs101_unit1_03_l_Programming.srt')
+        self.filename = os.path.join(settings.uploadpath,'cs101_unit1_03_l_Programming.srt')
         
     
     def test_file_exists(self):
@@ -21,7 +21,7 @@ class SubRipParseTest(TestCase):
         
     def test_create_subtitle_filename(self):
         vidname = 'myvideo.webm'
-        self.assertEqual(settings.MEDIA_ROOT+'/uploads/myvideo.srt',create_subtitle_filename(vidname))
+        self.assertEqual(os.path.join(settings.uploadpath,'myvideo.srt'),create_subtitle_filename(vidname))
     
     def test_convert_to_seconds(self):        
         t1 = '00:00:08,000'
