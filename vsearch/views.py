@@ -77,14 +77,29 @@ def sendname(request):
         return HttpResponse(serialized, mimetype="application/json")
     else:
         return HttpResponseServerError(serialized, mimetype="application/json")
-   
+
+
+"""
+parse file and get a list
+['1', '00:00:00,000 --> 00:00:02,000', "some text.",...]
+
+"""   
 def create_entrylist(infile):
-    r=[]
+    entrylist = []
     with codecs.open(infile, "r", "utf-8-sig") as f:
         for line in f:
-            r.append(str(line.strip()))
-    return r
+            entrylist.append(str(line.strip()))
+    return entrylist
 
+"""
+from entrylist create a list of lists as
+[['1', '00:00:00,000 --> 00:00:02,000', "hello there"],[...],...]
+or possibly
+[['1', '00:00:00,000 --> 00:00:02,000', "hello there","howdy"],[...],...]
+if the subrip file contains multiple text lines 
+
+if subtitle file has more than one line as videotext,
+"""
 def create_sublists(entrylist):
     mlist=[]
     l=[]
@@ -95,17 +110,21 @@ def create_sublists(entrylist):
             if len(l)>0:
                 mlist.append(l)
             l=[]
+    #concat the third element with the fourth,fifth elements etc   
+    for x in mlist:
+        x[2:] = [" ".join(x[2:])]
     return mlist  
 
-"""
-go thru each sublist
-create a dict for each sublist
-combine third and rest into single string
-add to dicts
-add each dict to a dlist
-return dlist
-"""
+
 def create_dict_list(mlist):
+    """
+    go thru each sublist
+    create a dict for each sublist
+    combine third and rest into single string
+    add to dicts
+    add each dict to a dlist
+    return dlist
+    """
     dlist=[]
     for subl in mlist:
         d={}
@@ -146,8 +165,8 @@ def search_for_words_in_dict_list(data_dict_list,keywords):
 
 def create_subtitle_filename(videofilename):
     subfile_name=videofilename[:videofilename.rindex('.')]+'.srt'
-    #return os.path.join(MEDIA_ROOT,'uploads',subfile_name)
-    return os.path.join(settings.uploadpath,subfile_name )
+    subtitlefile_fullpathname = os.path.join(settings.uploadpath,subfile_name )
+    return subtitlefile_fullpathname
 
 def ajax_search(request):
     success = False

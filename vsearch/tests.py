@@ -14,7 +14,6 @@ from django.http import HttpResponseServerError
 class SubRipParseTest(TestCase):
     def setUp(self):
         self.filename = os.path.join(settings.uploadpath,'cs101_unit1_03_l_Programming.srt')
-        
     
     def test_file_exists(self):
         self.assertTrue(os.path.isfile(self.filename))
