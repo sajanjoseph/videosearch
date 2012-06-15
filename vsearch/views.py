@@ -1,5 +1,5 @@
 # Create your views here.
-from models import UploadFileForm,VideoFile
+#from models import VideoFile
 import settings
 from django.shortcuts import render_to_response,redirect
 from django.template import RequestContext
@@ -12,6 +12,8 @@ from django.views.decorators.http import require_POST
 from django.contrib.auth.views import logout_then_login
 from django.contrib.auth.decorators import login_required
 
+from django.template.defaultfilters import slugify
+
 #import memcache
 from django.core.cache import cache
 
@@ -23,7 +25,7 @@ import cgi
 import datetime
 import os
 
-
+user_video_map={}
 #videofilename=''
 
 @require_POST
@@ -86,19 +88,25 @@ def sendname(request):
     if (request.is_ajax()) and (request.method == "POST"):
         post = request.POST.copy()
         if post.has_key('name'):
-            name = post['name']
-            #global videofilename
-            #videofilename = name
-            #vfile = VideoFile()# instead use get_or_create(name = name)
-            vfile, created = VideoFile.objects.get_or_create(name = name)
-            user.videofile = vfile
-            user.save()
+            name = post['name']            
+            #vfile, created = VideoFile.objects.get_or_create(name = name)
+            #user.videofile = vfile
+            #user.save()
+            if user_video_map.has_key(user.username):
+                del user_video_map[user.username]
+            user_video_map[user.username]=name
+            #subfile_name = create_subtitle_filename(user.username,name)
             #from cache clear this filename key if already exists
             #The user may select a diff videofile with same name
             #so the cache'd values may not help
-            subfile_name = create_subtitle_filename(user.username,vfile.name)
-            cache.delete(subfile_name)
+            #subfile_name = create_subtitle_filename(user.username,vfile.name)
+            
+            #cache.delete(subfile_name)
+            #slugify is used since delete(name) fails if name contains spaces
+            cache.delete(slugify(name))
+            print 'name from cache deleted'
             success = True
+            to_return['msg'] = u"successfully sent name"
         else:
             to_return['msg'] = u"Requires name"
     serialized = simplejson.dumps(to_return)
@@ -216,20 +224,20 @@ def ajax_search(request):
             kwords = [x.strip() for x in kwords.split()]
             to_return['kw'] = kwords
             to_return['msg'] = u'retrieved kwords.'
-            videofilename = VideoFile.objects.get(user=request.user).name
-            print 'ajax_search()::videofilename=',videofilename
+            #videofilename = VideoFile.objects.get(user=request.user).name
+            videofilename = user_video_map.get(request.user.username)
             if videofilename:
                 subtitle_filename = create_subtitle_filename(username,videofilename)
-                print 'cache=',cache
-                print 'ajax_search()::subtitle_filename=',subtitle_filename
-                dlist = cache.get(subtitle_filename)
+                #dlist = cache.get(subtitle_filename)
+                dlist = cache.get(slugify(videofilename))
                 if dlist:
                     print 'got dlist'
                 else:
                     print 'need to read file'
                     if os.path.isfile(subtitle_filename):
                         dlist = parse_subtitle_file(subtitle_filename)
-                        cache.set(subtitle_filename,dlist)
+                        #cache.set(subtitle_filename,dlist)
+                        cache.set(slugify(videofilename),dlist)
                     else:
                         print 'ajax_search()::Requires subtitle file'
                         to_return['msg'] = u'Requires subtitle file'                     
@@ -262,7 +270,8 @@ def search(request, template_name):
     user_kwords=request.GET.get('keywords')
     kwords = [x.strip() for x in user_kwords.split()]
     subtitle_file = None
-    videofilename = VideoFile.objects.get(user=request.user).name
+    #videofilename = VideoFile.objects.get(user=request.user).name
+    videofilename = user_video_map.get(request.user.username)
     if videofilename:
         subtitle_filename = create_subtitle_filename(videofilename)
         dlist = parse_subtitle_file(subtitle_filename)

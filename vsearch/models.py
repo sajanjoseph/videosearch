@@ -3,12 +3,8 @@ from django import forms
 from django.contrib.auth.models import User
 # Create your models here.
 
-class UploadFileForm(forms.Form):
-    title = forms.CharField(max_length=50)
-    subfile  = forms.FileField()
-
-class VideoFile(models.Model):
-    name = models.CharField(max_length=400)
-    
-
-models.ForeignKey(VideoFile, null=True, blank=True).contribute_to_class(User, 'videofile')    
+#class VideoFile(models.Model):
+#    name = models.CharField(max_length=400)
+#    
+#
+#models.ForeignKey(VideoFile, null=True, blank=True).contribute_to_class(User, 'videofile')    
