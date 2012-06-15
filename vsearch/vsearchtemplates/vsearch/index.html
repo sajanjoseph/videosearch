@@ -13,6 +13,15 @@
 
 {% block content %}
 {{block.super}}
+<div id="accountinfo">
+logged in as : {{user.username}}
+<form id="logoutform" method="post" action="{% url vsearch_logout %}">{% csrf_token %}
+   	<input type="hidden" name="next" value="{{next|escape}}" />
+    <input type="hidden" name="confirm" value="true" />
+    <input type="submit" value="Logout" id="logout-button"/>
+</form>
+</div>
+
 <div id="videodiv">
 <video id="vid" width="640" height="360" controls="controls">
        

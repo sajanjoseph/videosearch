@@ -1,0 +1,34 @@
+{% extends "registration/auth_base.html" %}
+{% block content %}{{block.super}}
+
+
+<div class="subtitle short">Register</div>
+
+	   <div id="registerform">
+        <form action="/vsearch/account/register/" method="POST">{% csrf_token %}
+        {% if form.non_field_errors %}
+            {{ form.non_field_errors }}
+		{% endif %}
+        <fieldset class="registerfields">            
+            <p><label for="id_username">Username:</label> {{ form.username }}</p>
+            {% if form.username.errors %}<p class="error">{{ form.username.errors }}</p>{% endif %}            
+            <p><label for="id_email">EmailAddress:</label>{{ form.email }}</p>
+            {% if form.email.errors %}<p class="error">{{ form.email.errors }}</p>{% endif %}
+            <p><label for="id_password1">Password:</label>{{ form.password1 }}</p>
+            {% if form.password1.errors %}<p class="error">{{ form.password1.errors }}</p>{% endif %}
+            <p><label for="id_password2">Password(again):</label>{{ form.password2 }}</p>
+            {% if form.password2.errors %}<p class="error">{{ form.password2.errors }}</p>{% endif %}
+           
+        <p>
+            <input type="submit" value="Submit" />
+        </p>
+        </fieldset>
+        
+        </form>
+		</div>
+{% endblock %}
+
+{% block whatis %}
+{{page_title}} Register new user
+{% endblock %}
+

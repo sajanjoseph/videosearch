@@ -1,0 +1,12 @@
+{% extends "registration/auth_base.html" %}
+{% block content %}{{block.super}}
+
+
+<span id="message">Your account is now active!</span>  
+<p class="center">  <a class="btnlnk" href="{% url vsearch_login %}" > Login </a> </p> 
+
+{% endblock %}
+{% block whatis %}
+Activation complete message
+{% endblock %}
+

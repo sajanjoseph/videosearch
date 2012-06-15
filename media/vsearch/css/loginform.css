@@ -1,0 +1,80 @@
+@CHARSET "UTF-8";
+	body {
+			background: #E3E0D1;
+		}
+
+	form#logoutform {
+		
+	}
+	
+	form#loginform {
+		
+		border: 1px solid #270644;
+		width: 250px;
+		-moz-border-radius: 20px;
+		-webkit-border-radius: 20px;
+		background:  -moz-linear-gradient(19% 75% 90deg,#848484, #E3E0D1);
+		background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#E3E0D1), to(#848484));
+		margin:50px auto;
+		padding: 20px;
+		-moz-box-shadow:0px -5px 300px #1C1C1C;
+		-webkit-box-shadow:0px -5px 300px #1C1C1C;
+		
+	}
+	
+	div#accountinfo{
+	  
+	  float :right;
+	}
+
+	label {
+		
+		text-transform: uppercase;
+		display: block;
+	}
+
+	input {
+	  
+		background: #848484;
+		width: 230px;
+	}
+
+	input.submit {
+	  
+	}
+
+	input.submit:hover {
+		
+	} 
+
+	input.submit:active {
+		
+	}
+
+	input:hover {
+		
+	}
+	
+	#error_message {
+    border: 2px solid #FAAFBE;
+    margin: auto;
+    padding: 0.5em;
+    color: #fff;
+    width: 25em;
+    font-weight: bold;
+    background: #FAAFBE;
+}
+
+.subtitle {
+	clear:both;
+    
+	
+}
+
+span#registerlink{
+		
+	
+}
+span#registerlink a {
+	
+}

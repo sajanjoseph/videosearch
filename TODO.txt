@@ -1,0 +1,5 @@
+f two diff users select two diff clips of same name.This may cause a subtitle file uploaded by one user  to be overwritten
+by the file upl/by the other user.
+Solution:
+when uploading the file to server,add(prefix) username to the name of file.The same user may overwrite his own uploaded file
+

@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>VideoSearch{% block title %} {% endblock %}</title>
+<LINK REL=StyleSheet HREF="{{MEDIA_URL}}css/vs.css" TYPE="text/css" MEDIA="screen, print"/>
+<link rel="shortcut icon" href="{{ MEDIA_URL }}img/vsearch-icon.ico"/>
+</head>
+<body>
+
+<span id="logo"> VideoSearch</span>
+<div id="hstrip"/>
+<div id="content">
+   {% block content %}
+
+   {% endblock %}
+ </div>
+ 
+<div id="sidebar"> 
+	<h3> page info </h3>
+	{% block whatis %}
+	{% endblock %}
+	
+</div>
+<div id="homelnk">
+<a href="{% url home %}"><img class="centerpage" src="{{ MEDIA_URL }}img/home.png"></a>
+</div>
+</body>
+</html>
