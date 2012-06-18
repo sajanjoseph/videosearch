@@ -8,11 +8,11 @@
 	}
 	
 	form#loginform {
-		
+		text-align: center;
 		border: 1px solid #270644;
 		width: 250px;
-		-moz-border-radius: 20px;
-		-webkit-border-radius: 20px;
+		border-radius: 20px;
+		
 		background:  -moz-linear-gradient(19% 75% 90deg,#848484, #E3E0D1);
 		background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#E3E0D1), to(#848484));
 		margin:50px auto;
@@ -40,7 +40,17 @@
 	}
 
 	input.submit {
-	  
+	  -webkit-transition-property: -webkit-box-shadow, background;
+	  -webkit-transition-duration: 0.25s;
+		width: 100px;
+		background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#848484), to(#585858));	
+		background:  -moz-linear-gradient(19% 75% 90deg,#585858, #848484);
+		
+		color: #fff;
+		text-transform: uppercase;
+		text-shadow: #000 1px 1px;
+		border-top: 1px solid #A4A4A4;
+		margin-top: 10px;
 	}
 
 	input.submit:hover {

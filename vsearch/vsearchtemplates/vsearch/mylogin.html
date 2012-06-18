@@ -8,7 +8,7 @@ login
 
 <body>
 <div class="subtitle">
-login to VideoSearch
+
 
 </div>
 <span id="registerlink">
@@ -23,6 +23,7 @@ login to VideoSearch
 
 
 <form id="loginform" method="post" action=".">{% csrf_token %}
+		<img src="{{MEDIA_URL}}img/vs.png" id="mainlogo" >
 		<label>Username:</label>
 			<input id="id_username" type="text" name="username" />
 		<label>Password:</label>

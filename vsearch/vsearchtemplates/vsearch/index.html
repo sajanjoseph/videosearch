@@ -18,7 +18,7 @@ logged in as : {{user.username}}
 <form id="logoutform" method="post" action="{% url vsearch_logout %}">{% csrf_token %}
    	<input type="hidden" name="next" value="{{next|escape}}" />
     <input type="hidden" name="confirm" value="true" />
-    <input type="submit" value="Logout" id="logout-button"/>
+    <input type="submit" value="Logout" class="submit"/>
 </form>
 </div>
 

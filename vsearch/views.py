@@ -92,8 +92,8 @@ def sendname(request):
             #vfile, created = VideoFile.objects.get_or_create(name = name)
             #user.videofile = vfile
             #user.save()
-            if user_video_map.has_key(user.username):
-                del user_video_map[user.username]
+#            if user_video_map.has_key(user.username):
+#                del user_video_map[user.username]
             user_video_map[user.username]=name
             #subfile_name = create_subtitle_filename(user.username,name)
             #from cache clear this filename key if already exists
@@ -229,6 +229,7 @@ def ajax_search(request):
             if videofilename:
                 subtitle_filename = create_subtitle_filename(username,videofilename)
                 #dlist = cache.get(subtitle_filename)
+                print 'user_video_map=',user_video_map
                 dlist = cache.get(slugify(videofilename))
                 if dlist:
                     print 'got dlist'

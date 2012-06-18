@@ -27,9 +27,17 @@ $(document).ready(function(){
         	});
         
         $('#kwsearch').click(function(e){
+        	//if search button clicked
         	searchInSubtitles();
         	e.preventDefault();
         	});
+        
+        $('#kwords').keypress(function(e) {
+        	//if Enter key pressed in search field
+        	if(e.which == 13) {
+        		searchInSubtitles();
+            }
+        });
         
         $(document).on('click', '.mylinkclass', function(e) {
             getLinkText(this,player);
