@@ -77,8 +77,8 @@ video {
 	position : absolute;
 	right : 0;
 	top : 70px;
-	width:50%;
-	-moz-border-radius: 10px;
+	width:45%;
+	border-radius: 10px;
 	display: none;
 	padding: 10px;
     background: #D0D0D0;
@@ -105,4 +105,32 @@ div#videodiv{
     
 }
 
+fieldset.registerfields label {
+	float: left;
+    width: 8em; 
+    margin-right: 1em;
+    text-align: left;
+		
+	}
+	
+label.vsearch{
+	 
+	 float: left;
+     width: 12em; 
+     margin-right: 1em;
+     text-align: left;
+}	
 
+div.half{
+  width:50%;
+}
+
+div.box{
+	
+    padding: 10px;
+    background-image: -moz-radial-gradient(center, circle farthest-corner, #FFFFFF 0%, gray 100%);
+    background-image: -webkit-gradient(radial, center center, 0, center center, 492, color-stop(0, #FFFFFF), color-stop(1, gray));
+    background-image: -webkit-radial-gradient(center, circle farthest-corner, #FFFFFF 0%, gray 100%);
+    border-radius: 10px;
+	
+}

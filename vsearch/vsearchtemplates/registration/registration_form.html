@@ -4,7 +4,7 @@
 
 <div class="subtitle short">Register</div>
 
-	   <div id="registerform">
+	   <div id="registerform" class="box half">
         <form action="/vsearch/account/register/" method="POST">{% csrf_token %}
         {% if form.non_field_errors %}
             {{ form.non_field_errors }}

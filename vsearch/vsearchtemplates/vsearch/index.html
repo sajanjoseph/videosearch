@@ -22,7 +22,7 @@ logged in as : {{user.username}}
 </form>
 </div>
 
-<div id="videodiv">
+<div id="videodiv" class="box">
 <video id="vid" width="640" height="360" controls="controls">
        
        Your browser does not support the video tag.
@@ -41,25 +41,31 @@ logged in as : {{user.username}}
 
 </div>
 
+
+<div >
 <p>
-<label>Select a video
+<label class="vsearch">Select a video</label>
 <input type="file" name="fileselect" id="vselect"> </input>
-</label>
 </p>
+
 
 <form enctype="multipart/form-data" method="post" id="subfileform">{% csrf_token %}
 <p>
-<label>Select a subtitle
+<label class="vsearch">Upload subtitle</label>
 <input type="file" name="subselect" id="subfselect"> </input>
-</label>
 </p>
-<!--  <input type="submit" id="sendsubtitle" value="sendsubtitle"> -->
+
+
 </form> 
 <div id="searchdiv">
-<label>
-    Search for some words:<input type="text" name="keywords" id="kwords"/>
+<p>
+<label class="vsearch">
+    Search for some words:</label><input type="text" name="keywords" id="kwords">
+</p>
     <button type="button" id="kwsearch">search in video</button>
-</label>
+
+</div>
+
 </div>
 </div>
 

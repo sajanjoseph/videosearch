@@ -27,17 +27,15 @@
 	  float :right;
 	}
 
-	label {
-		
-		text-transform: uppercase;
-		display: block;
-	}
+	
 
 	input {
 	  
 		background: #848484;
 		width: 230px;
 	}
+	
+	
 
 	input.submit {
 	  -webkit-transition-property: -webkit-box-shadow, background;
@@ -88,3 +86,4 @@ span#registerlink{
 span#registerlink a {
 	
 }
+
