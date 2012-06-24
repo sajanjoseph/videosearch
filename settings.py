@@ -144,7 +144,7 @@ TEMPLATE_DIRS = (
 #uploadpath
 import os
 uploadpath = os.path.join(MEDIA_ROOT,'uploadpath')
-
+testpath = os.path.join(MEDIA_ROOT,'testpath')
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -160,6 +160,9 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     
 )
+
+import logging
+LOG_LEVEL = logging.DEBUG
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

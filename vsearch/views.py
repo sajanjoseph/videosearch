@@ -1,5 +1,5 @@
 # Create your views here.
-#from models import VideoFile
+
 from models import UserFileNameMap
 import settings
 from django.shortcuts import render_to_response,redirect
@@ -21,8 +21,14 @@ import cgi
 import datetime
 import os
 import logging
+from settings import LOG_LEVEL
 
-logger = logging.getLogger('videosearch.vsearch.views')
+logging.basicConfig(
+    level = LOG_LEVEL,
+    format = '%(asctime)s %(levelname)s %(message)s',
+)
+
+logger = logging.getLogger(__name__)
 
 @require_POST
 @never_cache
@@ -59,17 +65,17 @@ def store_uploaded_file(request,template_name):
 def ajax_store_uploaded_file(request):
     to_return = {}
     store_message="failure"
-    if  (request.method == 'POST'):
-        if request.FILES.has_key('file'):
-            file = request.FILES['file']
-            #prefix username to filename
-            fname = request.user.username+'_'+file.name
-            with open(settings.uploadpath+'/%s' % fname, 'wb+') as dest:
-                for chunk in file.chunks():
-                    dest.write(chunk)
-            store_message="success"
+    if  (request.method == 'POST') and request.FILES.has_key('file'):
+        #if request.FILES.has_key('file'):
+        file = request.FILES['file']
+        #prefix username to filename
+        fname = request.user.username+'_'+file.name
+        with open(settings.uploadpath+'/%s' % fname, 'wb+') as dest:
+            for chunk in file.chunks():
+                dest.write(chunk)
+        store_message="success"
     to_return['store_message']= store_message
-    to_return['store_message']= store_message
+    print 'to_return=',to_return
     serialized = simplejson.dumps(to_return)
     if store_message == "success":
         return HttpResponse(serialized, mimetype="application/json")
@@ -79,7 +85,6 @@ def ajax_store_uploaded_file(request):
 
 @login_required
 def sendname(request):
-    user = request.user
     success = False
     to_return = {'msg':u'No POST data sent.' }
     if (request.is_ajax()) and (request.method == "POST"):
@@ -91,7 +96,7 @@ def sendname(request):
             fmap.save()
             #slugify is used since delete(name) fails if name contains spaces
             cache.delete(slugify(name))
-            logger.debug(name,' from cache deleted')
+            logger.debug('%s from cache deleted'%name)
             success = True
             to_return['msg'] = u"successfully sent name"
         else:
@@ -109,7 +114,7 @@ parse file and get a list
 def create_entrylist(infile):
     entrylist = []
     with codecs.open(infile, "r", "utf-8-sig") as f:
-        logger.debug('parsing subtitle file:',infile)
+        logger.debug('parsing subtitle file:%s'%infile)
         for line in f:
             entrylist.append(str(line.strip()))
     return entrylist
@@ -121,7 +126,6 @@ or possibly
 [['1', '00:00:00,000 --> 00:00:02,000', "hello there","howdy"],[...],...]
 if the subrip file contains multiple text lines 
 
-if subtitle file has more than one line as videotext,
 """
 def create_sublists(entrylist):
     mlist=[]
@@ -138,7 +142,6 @@ def create_sublists(entrylist):
         x[2:] = [" ".join(x[2:])]
     return mlist  
 
-
 def create_dict_list(mlist):
     """
     go thru each sublist
@@ -149,6 +152,7 @@ def create_dict_list(mlist):
     return dlist
     """
     dlist=[]
+    
     for subl in mlist:
         d={}
         if re.match('\d+$',subl[0]):
@@ -169,13 +173,19 @@ def create_dict_list(mlist):
         else:
             raise ValueError(subl[2],' should be alphanumeric')
         dlist.append(d)
+    
     return dlist
 
 def parse_subtitle_file(infile):
-    entrylist=create_entrylist(infile)
-    mlist=create_sublists(entrylist)
-    dlist=create_dict_list(mlist)
-    return dlist
+    try:
+        entrylist=create_entrylist(infile)
+    except (ValueError, IndexError) as e:
+        logger.error(str(e))
+    else:
+        mlist=create_sublists(entrylist)
+        dlist=create_dict_list(mlist)
+        return dlist
+    
 
 def search_for_words_in_dict_list(data_dict_list,keywords):
     result=[]
@@ -221,12 +231,13 @@ def ajax_search(request):
                         logger.debug('Requires subtitle file')
                         to_return['msg'] = u'Requires subtitle file'                     
                 
-                res = search_for_words_in_dict_list(dlist,kwords)
-                res = convert_to_seconds_tpls(res)
-                for v,k in res:
-                    to_return[k] = v
-                to_return['results'] = res
-                success = True
+                if dlist:
+                    res = search_for_words_in_dict_list(dlist,kwords)
+                    res = convert_to_seconds_tpls(res)
+                    for v,k in res:
+                        to_return[k] = v
+                    to_return['results'] = res
+                    success = True
         else:
             to_return['msg'] = u'Requires keywords'
     serialized = simplejson.dumps(to_return)

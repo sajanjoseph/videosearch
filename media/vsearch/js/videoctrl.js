@@ -198,9 +198,6 @@ var done = function(res, status) {
     }
 };
 
-
-
-
 function checkCanPlay(player,file){
 	var type = file.type;
 	//console.log('type=',type);
@@ -212,7 +209,6 @@ function checkCanPlay(player,file){
 	}else{
 		return true;
 	}
-		
 }
 
 function setVideoSrc(player){
