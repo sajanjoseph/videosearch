@@ -75,7 +75,6 @@ def ajax_store_uploaded_file(request):
                 dest.write(chunk)
         store_message="success"
     to_return['store_message']= store_message
-    print 'to_return=',to_return
     serialized = simplejson.dumps(to_return)
     if store_message == "success":
         return HttpResponse(serialized, mimetype="application/json")

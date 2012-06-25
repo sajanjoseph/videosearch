@@ -19,9 +19,9 @@ class SubRipParseTest(TestCase):
         self.invalidfile = os.path.join(settings.testpath,'invalid_file.srt')
         self.no_seq_num = os.path.join(settings.testpath,'no_seq_num.srt')
         self.no_time_range = os.path.join(settings.testpath,'no_time_range.srt')
-        base_name = 'cs101_unit1_03_l_Programming.srt'
-        self.srcfile = os.path.join(settings.testpath,base_name)
-        self.destfile = os.path.join(settings.uploadpath,'sajan_'+base_name)
+        self.base_name = 'cs101_unit1_03_l_Programming.srt'
+        self.srcfile = os.path.join(settings.testpath,self.base_name)
+        self.destfile = os.path.join(settings.uploadpath,'sajan_'+self.base_name)
         
     def tearDown(self):
         #remove uploadedfile if exists
@@ -148,26 +148,39 @@ class SubRipParseTest(TestCase):
             response = self.client.post(reverse('ajax_upload'),{'file':fp}, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertEqual(200,response.status_code)
         self.assertTrue(os.path.isfile(self.destfile))
+        
+    def test_upload_missing_file(self):
+        self.assertTrue(os.path.isfile(self.srcfile))
+        self.assertFalse(os.path.isfile(self.destfile))
+        response = self.client.post(reverse('ajax_upload'),{'file':None}, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEqual(500,response.status_code)
+        self.assertFalse(os.path.isfile(self.destfile))
+        d = simplejson.loads(response.content)
+        self.assertEquals(d['store_message'],'failure')
 
-#    def test_ajax_search(self):
-#        data={'kwords':'toaster'}
-#        response = self.client.post(reverse('sendname'),{'name':'cs101_unit1_03_l_Programming.webm'}, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
-#        self.assertEqual(200,response.status_code)
-#        response = self.client.post(reverse('search'),data, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
-#        self.assertEqual(200,response.status_code)
-#        self.assertEqual(response['Content-Type'],'application/json')
-#        self.assertTrue(response.content[0]=='{')
-#        self.assertTrue(response.content[-1]=='}')
-#        d = simplejson.loads(response.content)
-#        self.assertEqual(d.get('8'),'This is supposed to be a toaster.')
-#        self.assertEqual(d.get('57'),'So without a program, a computer is even less useful than a toaster.')
-#       
-#    def test_non_ajax_search_returns_error(self):
-#        data={'kwords':'toaster'}
-#        response = self.client.post(reverse('sendname'),{'name':'cs101_unit1_03_l_Programming.webm'}, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
-#        self.assertEqual(response['Content-Type'],'application/json')
-#        self.assertEqual(200,response.status_code)
-#        response = self.client.post(reverse('search'),data)
-#        self.assertEqual(500,response.status_code)
-#        d = simplejson.loads(response.content)
-#        self.assertEqual(d.get('msg'),'No POST data sent.')
+    def test_ajax_search(self):
+        data={'kwords':'toaster'}
+        response = self.client.post(reverse('sendname'),{'name':'cs101_unit1_03_l_Programming.webm'}, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEqual(200,response.status_code)
+        with open(self.srcfile) as fp:
+            response = self.client.post(reverse('ajax_upload'),{'file':fp}, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEqual(200,response.status_code)
+        self.assertTrue(os.path.isfile(self.destfile))
+        response = self.client.post(reverse('search'),data, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEqual(200,response.status_code)
+        self.assertEqual(response['Content-Type'],'application/json')
+        self.assertTrue(response.content[0]=='{')
+        self.assertTrue(response.content[-1]=='}')
+        d = simplejson.loads(response.content)
+        self.assertEqual(d.get('8'),'This is supposed to be a toaster.')
+        self.assertEqual(d.get('57'),'So without a program, a computer is even less useful than a toaster.')
+        
+    def test_ajax_search_with_no_file(self):
+        data={'kwords':'toaster'}
+        response = self.client.post(reverse('sendname'),{'name':'cs101_unit1_03_l_Programming.webm'}, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEqual(200,response.status_code)
+        self.assertFalse(os.path.isfile(self.destfile))
+        response = self.client.post(reverse('search'),data, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEqual(500,response.status_code)
+        d = simplejson.loads(response.content)
+        self.assertEqual(d.get('msg'),'Requires subtitle file')
