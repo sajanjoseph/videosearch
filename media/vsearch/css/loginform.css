@@ -79,11 +79,17 @@
 	
 }
 
-span#registerlink{
-		
-	
+p#reset-pass,#registerlink{
+	width:15em;
+	margin-top:.5em;
+	margin-bottom:.5em;
 }
-span#registerlink a {
-	
+a.btnlink{
+	clear:both;
+	border: 2px outset;
+  	padding: 10px;
+  	display:block;
+  	text-decoration: none;
+  	border-color : white white white #A1E048;
 }
 

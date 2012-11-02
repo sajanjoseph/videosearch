@@ -112,6 +112,13 @@ fieldset.registerfields label {
     text-align: left;
 		
 	}
+fieldset.resetpassfields label {
+	float: left;
+    width: 8em; 
+    margin-right: 1em;
+    text-align: left;
+		
+	}
 	
 label.vsearch{
 	 

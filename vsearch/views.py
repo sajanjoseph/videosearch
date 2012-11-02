@@ -1,6 +1,6 @@
 # Create your views here.
 
-from models import UserFileNameMap
+from models import UserFileNameMap,FileAccessTime
 import settings
 from django.shortcuts import render_to_response,redirect
 from django.template import RequestContext
@@ -38,6 +38,24 @@ def logout(request):
 def custom_render(request,context,template):
     req_context=RequestContext(request,context)
     return render_to_response(template,req_context)
+
+def delete_subrips(request,template_name):
+    print 'cleaning up'
+    current_dt = datetime.datetime.now()
+    fats = FileAccessTime.objects.all()
+    todelete =[]
+    for fat in fats:
+        accessTime = fat.accessTime
+        td = current_dt - accessTime
+        if td.days > 2:
+            print '%s accessed 2 days ago'% fat.filename
+            todelete.append(fat.filename)
+            fat.delete()
+    print 'to be deleted ',todelete
+    
+    for afile in todelete:
+        os.remove(afile)
+    return index(request,template_name)
 
 @login_required   
 def index(request, template_name):
@@ -89,13 +107,18 @@ def sendname(request):
     if (request.is_ajax()) and (request.method == "POST"):
         post = request.POST.copy()
         if post.has_key('name'):
-            name = post['name']
+            videofilename = post['name']
             fmap = UserFileNameMap.objects.get_or_create(fuser=request.user)[0]
-            fmap.filename = name 
+            fmap.filename = videofilename
             fmap.save()
+            srtfilename = create_subtitle_filename(request.user.username,videofilename)
+            fat = FileAccessTime.objects.get_or_create(filename=srtfilename)[0]
+            #print 'fat=',fat
+            fat.accessTime = datetime.datetime.now()
+            fat.save()
             #slugify is used since delete(name) fails if name contains spaces
-            cache.delete(slugify(name))
-            logger.debug('%s from cache deleted'%name)
+            cache.delete(slugify(videofilename))
+#            logger.debug('%s from cache deleted'%name)
             success = True
             to_return['msg'] = u"successfully sent name"
         else:

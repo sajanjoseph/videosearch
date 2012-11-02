@@ -15,6 +15,12 @@
 {{block.super}}
 <div id="accountinfo">
 logged in as : {{user.username}}
+{% if  user.is_superuser %}
+	<form id="deletesubripsform" method ="post" action="{% url vsearch_deletesubrips %}">{% csrf_token %}
+	  <input id="cleanupbtn" type="submit" value="CleanUp" class="submit"/>
+	</form>
+{% endif %}
+
 <form id="logoutform" method="post" action="{% url vsearch_logout %}">{% csrf_token %}
    	<input type="hidden" name="next" value="{{next|escape}}" />
     <input type="hidden" name="confirm" value="true" />
