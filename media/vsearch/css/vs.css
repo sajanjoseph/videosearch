@@ -1,6 +1,8 @@
 /* css for django app*/
-body{
-    background-color: grey;
+
+
+body {
+	background: #E3E0D1;
 }
 
 video {
@@ -11,9 +13,7 @@ video {
 }
 
 .video_controls {
-
       width: 640px;
-
 }
 
 .video_buttons {
@@ -22,11 +22,9 @@ video {
     margin: 0;
     overflow: visible;
     padding: 0 0 0 120px;  
-      
 }
 
 .video_buttons li {
-
       clear: none;
 
       float: left;
@@ -36,11 +34,9 @@ video {
       margin: 0;
 
       padding: 0 20px;
-
 }
 
 .video_buttons a {
-
       background-image: url("../img/pcontrols.png");
 
       background-repeat: no-repeat;
@@ -56,7 +52,6 @@ video {
       text-indent: -9999px;
 
       width: 34px;
-
 }
 
 .video_play a { background-position: -16px -13px }
@@ -76,13 +71,12 @@ video {
 #results{
 	position : absolute;
 	right : 0;
-	top : 70px;
+	top : 130px;
 	width:45%;
 	border-radius: 10px;
 	display: none;
 	padding: 10px;
     background: #D0D0D0;
-	
 }
 
 #errorfld{
@@ -102,7 +96,6 @@ div#videodiv{
 	display: block;
     margin-left: auto;
     margin-right: auto; 
-    
 }
 
 fieldset.registerfields label {
@@ -110,18 +103,16 @@ fieldset.registerfields label {
     width: 8em; 
     margin-right: 1em;
     text-align: left;
-		
 	}
+
 fieldset.resetpassfields label {
 	float: left;
     width: 8em; 
     margin-right: 1em;
     text-align: left;
-		
 	}
-	
+
 label.vsearch{
-	 
 	 float: left;
      width: 12em; 
      margin-right: 1em;
@@ -133,11 +124,35 @@ div.half{
 }
 
 div.box{
-	
     padding: 10px;
     background-image: -moz-radial-gradient(center, circle farthest-corner, #FFFFFF 0%, gray 100%);
     background-image: -webkit-gradient(radial, center center, 0, center center, 492, color-stop(0, #FFFFFF), color-stop(1, gray));
     background-image: -webkit-radial-gradient(center, circle farthest-corner, #FFFFFF 0%, gray 100%);
     border-radius: 10px;
 	
+}
+div#accountinfo{
+  float :right;
+}
+
+input.submit {
+		position:relative;
+		width:200px;
+		background:#4a4a4a;
+		color:#fff;
+		font-family: Tahoma, Geneva, sans-serif;
+		height:30px;
+		-webkit-border-radius: 15px;
+		-moz-border-radius: 15px;
+		border-radius: 15px;
+		border: 1p solid #999;
+		border-top: 1px solid #A4A4A4;
+		margin-top: 10px;
+		margin-left:auto;
+		margin-right:auto;
+	}
+
+input.submit:hover {
+	background:#949494;
+	color:#4a4a4a;
 }

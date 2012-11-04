@@ -20,19 +20,21 @@ login
 
 
 <form id="loginform" method="post" action=".">{% csrf_token %}
-		<img src="{{MEDIA_URL}}img/vs.png" id="mainlogo" >
-		<label>Username:</label>
-			<input id="id_username" type="text" name="username" />
-		<label>Password:</label>
-			<input id="id_password" type="password" name="password"  />
+		<img src="{{MEDIA_URL}}img/vs1.png" id="mainlogo" >
+		<input id="id_username" type="text" name="username" placeholder="username"/>
+		
+		<input id="id_password" type="password" name="password" placeholder="password" />
+		
+		
 			<input type="hidden" name="next" value="{{next}}" />
 			<input type="submit" value="login" name="submit" class="submit" />
 			<br><br>
-			{% if not user.is_authenticated %} 
-	<a  href="{% url registration_register %}" title="Become a User by Registering" >Register</a>
-	{% endif %}
-	 <br><br>
-	 <a href="{% url auth_password_reset %}"><img src="{{ MEDIA_URL }}img/keysmall.png">Forgot password?</a>
+			
+	
+	<a href="{% url auth_password_reset %}"><img src="{{ MEDIA_URL }}img/keysmall.png">Forgot password?</a>
+	 <br>
+	 <a  href="{% url registration_register %}" title="Become a User by Registering" >Register</a>
+	 
 			
 </form>	
 
