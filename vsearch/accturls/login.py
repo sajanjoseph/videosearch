@@ -16,7 +16,7 @@ url(r'^logout/$', 'vsearch.views.logout', {}, name = 'vsearch_logout'),
 from registration.views import register
 custom_reg_patterns=patterns('',
      url(r'^register/', register, 
-      {'form_class':RegistrationFormUniqueEmail },
+      {'form_class':RegistrationFormUniqueEmail,'backend':'registration.backends.default.DefaultBackend' },
       
       name='registration_register'),
 )
